@@ -1,31 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-
-import { Text, View, Image } from "react-native";
 import Swiper from 'react-native-swiper';
+import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+
+import { SwiperData } from "../../variables/data";
+import FeedNews from "./components/FeedNews";
 
 type HomeScreenProps = {
     navigation: BottomTabNavigationProp<RootTabParamList, 'Home'>;
 };
 
-const images = [
-    'https://images.pexels.com/photos/17318211/pexels-photo-17318211/free-photo-of-abstrato-resumo-abstrair-aventura.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/16159464/pexels-photo-16159464/free-photo-of-ceu-azul-ceu-de-brigadeiro-construcao-predio.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/15109908/pexels-photo-15109908/free-photo-of-flor-broto-borboleta-flores.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-];
-
 const Home: React.FC<HomeScreenProps> = (props) => {
 
     return (
-        <View className="bg-neutral-300 flex flex-1 justify-start pt-12 px-3 items-center">
-            <Swiper className="flex" loop={false} >
-                {images.map((image, index) => (
-                    <View key={index} className="flex flex-1">
-                        <Image source={{ uri: image }} className="w-full h-[30%] rounded-2xl bg-cover" />
+        <ScrollView className="bg-slate-100">
+            <View className="flex flex-1 justify-start pb-20 pt-8 px-1 items-center">
+                <View className="divide-y-[0.2px] divide-gray-600 p-2">
+                    <View className="mb-2 flex justify-between flex-row items-center gap-y-1.5">
+                        <View>
+                            <Text className="text-2xl font-light">Tarde, Ipatinga</Text>
+                            <Text className="text-xs font-light">Aqui está o seu feed de notícias</Text>
+                        </View>
+                        <View className="flex flex-row items-center">
+                            <Image source={{ uri: 'https://ssl.gstatic.com/onebox/weather/64/sunny.png' }} className="w-12 h-12 rounded-l-lg" />
+                            <View className="flex flex-row items-start">
+                                <Text className="text-4xl font-extralight">
+                                    22
+                                </Text>
+                                <Text className="text-sm font-extralight">°C</Text>
+                            </View>
+                        </View>
                     </View>
-                ))}
-            </Swiper>
-        </View>
+                    <View>
+                        <View className="flex-row items-center w-full">
+                            <Text className="text-lg font-medium">Destaques</Text>
+                        </View>
+                        <View className="h-48 mt-2">
+                            <Swiper showsButtons={false} showsPagination={false} showsHorizontalScrollIndicator={false}>
+                                {SwiperData.map((item, index) => (
+                                    <TouchableOpacity key={index} className="flex flex-1">
+                                        <Image source={{ uri: item.url }} className="w-full h-full rounded-2xl bg-cover" />
+                                        <View className="absolute rounded-2xl flex w-full h-full">
+                                            <View className={`flex ${item.type == 1 ? 'bg-blue-600' : 'bg-red-600'}  p-0.5 right-0 absolute px-3 rounded-bl-2xl rounded-tr-2xl`}>
+                                                <Text className="text-white text-sm font-extrabold">
+                                                    {item.type == 1 ? 'Notícias' : 'Promoção'}
+                                                </Text>
+                                            </View>
+                                            <View className="flex absolute bottom-0 px-3 rounded-bl-2xl rounded-tr-2xl justify-center items-start bg-gray-800/70">
+                                                <Text numberOfLines={1} adjustsFontSizeToFit ellipsizeMode="tail" className="text-white text-sm font-semibold my-1">
+                                                    {item.title}
+                                                </Text>
+                                                <Text className="text-white font-normal mb-2 text-xs">
+                                                    {item.date}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))}
+                            </Swiper>
+                        </View>
+                    </View>
+                    <FeedNews />
+                </View>
+            </View>
+        </ScrollView>
     )
 }
 
