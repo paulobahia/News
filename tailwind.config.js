@@ -40,7 +40,15 @@ module.exports = {
           900: '#121214',
           950: '#09090A',
         },
-      }
+      },
+      fontFamily: {
+        'nunito-extralight': ['Nunito-ExtraLight'],
+        'nunito-light': ['Nunito-Light'],
+        'nunito-regular': ['Nunito-Regular'],
+        'nunito-medium': ['Nunito-Medium'],
+        'nunito-bold': ['Nunito-Bold'],
+        'nunito-extrabold': ['Nunito-ExtraBold'],
+      },
     },
     plugins: [],
   },
