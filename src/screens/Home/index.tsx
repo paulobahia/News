@@ -11,29 +11,29 @@ type HomeScreenProps = {
 };
 
 const Home: React.FC<HomeScreenProps> = (props) => {
-
+    const { navigation } = props
     return (
         <ScrollView className="bg-slate-100">
-            <View className="flex flex-1 justify-start pb-20 pt-8 px-1 items-center">
+            <View className="flex flex-1 justify-start pb-24 pt-3 px-1 items-center">
                 <View className="divide-y-[0.2px] divide-gray-600 p-2">
                     <View className="mb-2 flex justify-between flex-row items-center gap-y-1.5">
                         <View>
-                            <Text className="text-2xl font-light">Tarde, Ipatinga</Text>
-                            <Text className="text-xs font-light">Aqui está o seu feed de notícias</Text>
+                            <Text className="text-2xl font-nunito-light">Tarde, Ipatinga</Text>
+                            <Text className="text-xs font-nunito-light">Aqui está o seu feed de notícias</Text>
                         </View>
-                        <View className="flex flex-row items-center">
-                            <Image source={{ uri: 'https://ssl.gstatic.com/onebox/weather/64/sunny.png' }} className="w-12 h-12 rounded-l-lg" />
-                            <View className="flex flex-row items-start">
-                                <Text className="text-4xl font-extralight">
-                                    22
+                        <View className="flex flex-row items-end">
+                            <Image source={{ uri: 'https://ssl.gstatic.com/onebox/weather/64/sunny.png' }} className="w-12 h-12" />
+                            <View className="flex flex-row">
+                                <Text className="text-4xl font-nunito-extralight">
+                                    28
                                 </Text>
-                                <Text className="text-sm font-extralight">°C</Text>
+                                <Text className="text-sm font-nunito-extralight">°C</Text>
                             </View>
                         </View>
                     </View>
                     <View>
                         <View className="flex-row items-center w-full">
-                            <Text className="text-lg font-medium">Destaques</Text>
+                            <Text className="text-lg font-nunito-medium">Destaques</Text>
                         </View>
                         <View className="h-48 mt-2">
                             <Swiper showsButtons={false} showsPagination={false} showsHorizontalScrollIndicator={false}>
@@ -42,15 +42,15 @@ const Home: React.FC<HomeScreenProps> = (props) => {
                                         <Image source={{ uri: item.url }} className="w-full h-full rounded-2xl bg-cover" />
                                         <View className="absolute rounded-2xl flex w-full h-full">
                                             <View className={`flex ${item.type == 1 ? 'bg-blue-600' : 'bg-red-600'}  p-0.5 right-0 absolute px-3 rounded-bl-2xl rounded-tr-2xl`}>
-                                                <Text className="text-white text-sm font-extrabold">
+                                                <Text className="text-white text-sm font-nunito-extrabold">
                                                     {item.type == 1 ? 'Notícias' : 'Promoção'}
                                                 </Text>
                                             </View>
                                             <View className="flex absolute bottom-0 px-3 rounded-bl-2xl rounded-tr-2xl justify-center items-start bg-gray-800/70">
-                                                <Text numberOfLines={1} adjustsFontSizeToFit ellipsizeMode="tail" className="text-white text-sm font-semibold my-1">
+                                                <Text numberOfLines={1} adjustsFontSizeToFit ellipsizeMode="tail" className="text-white text-sm font-nunito-bold my-1">
                                                     {item.title}
                                                 </Text>
-                                                <Text className="text-white font-normal mb-2 text-xs">
+                                                <Text className="text-white font-nunito-light mb-2 text-xs">
                                                     {item.date}
                                                 </Text>
                                             </View>
@@ -60,7 +60,7 @@ const Home: React.FC<HomeScreenProps> = (props) => {
                             </Swiper>
                         </View>
                     </View>
-                    <FeedNews />
+                    <FeedNews navigation={navigation} />
                 </View>
             </View>
         </ScrollView>

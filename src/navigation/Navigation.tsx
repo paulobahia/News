@@ -1,11 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, Live, Promotions, News, Settings } from '../screens'
-import { BottomTab } from '../components/BottomTab';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import { BottomTab } from '../components/BottomTab';
+import { Home, Live, Promotions, News, Settings, SheetNews } from '../screens'
+
+
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Navigation: React.FC = () => {
-
+function TabsNavigation() {
     return (
         <Tab.Navigator tabBar={props => <BottomTab {...props} />} screenOptions={{ headerShown: false, tabBarShowLabel: false, tabBarHideOnKeyboard: true, }}>
             <Tab.Screen name="Home" component={Home} />
@@ -14,6 +17,16 @@ const Navigation: React.FC = () => {
             <Tab.Screen name="News" component={News} />
             <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
+    )
+}
+
+const Navigation: React.FC = () => {
+
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='MainScreen' component={TabsNavigation} />
+            <Stack.Screen name='SheetNews' component={SheetNews} />
+        </Stack.Navigator>
     )
 }
 
