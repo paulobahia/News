@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { BottomTab } from '../components/BottomTab';
-import { Home, Live, Promotions, News, Settings, SheetNews } from '../screens'
+import { Home, Live, Promotions, Search, Settings, SheetNews } from '../screens'
 
 
 const Stack = createStackNavigator();
@@ -12,9 +12,8 @@ function TabsNavigation() {
     return (
         <Tab.Navigator tabBar={props => <BottomTab {...props} />} screenOptions={{ headerShown: false, tabBarShowLabel: false, tabBarHideOnKeyboard: true, }}>
             <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="Promotions" component={Promotions} />
-            <Tab.Screen name="Live" component={Live} />
-            <Tab.Screen name="News" component={News} />
             <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
     )

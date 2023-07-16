@@ -12,12 +12,12 @@ export default function App() {
     const loadFonts = async () => {
       try {
         await Font.loadAsync({
-          'Nunito-ExtraLight': require('./assets/Nunito-ExtraLight.ttf'),
-          'Nunito-Light': require('./assets/Nunito-Light.ttf'),
-          'Nunito-Regular': require('./assets/Nunito-Regular.ttf'),
-          'Nunito-Medium': require('./assets/Nunito-Medium.ttf'),
-          'Nunito-Bold': require('./assets/Nunito-Bold.ttf'),
-          'Nunito-ExtraBold': require('./assets/Nunito-ExtraBold.ttf'),
+          'RobotoSerif-ExtraLight': require('./assets/RobotoSerif-ExtraLight.ttf'),
+          'RobotoSerif-Light': require('./assets/RobotoSerif-Light.ttf'),
+          'RobotoSerif-Regular': require('./assets/RobotoSerif-Regular.ttf'),
+          'RobotoSerif-Medium': require('./assets/RobotoSerif-Medium.ttf'),
+          'RobotoSerif-Bold': require('./assets/RobotoSerif-Bold.ttf'),
+          'RobotoSerif-ExtraBold': require('./assets/RobotoSerif-ExtraBold.ttf'),
         });
         setFontLoaded(true);
       } catch (error) {
@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar hidden={true} />
+      <StatusBar style='inverted' translucent={false} />
       <Navigation />
     </NavigationContainer>
   );

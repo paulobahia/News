@@ -1,13 +1,13 @@
 import { Text, View } from "react-native"
 
-const News: React.FC = () => {
+const Search: React.FC = () => {
     return (
         <View className="bg-neutral-300 flex flex-1 justify-start pt-12 items-center">
             <Text>
-                News
+            Search
             </Text>
         </View>
     )
 }
 
-export default News
+export default Search
