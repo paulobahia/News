@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style='inverted' translucent={false} />
+      <StatusBar translucent={false} animated={true} style='auto' />
       <Navigation />
     </NavigationContainer>
   );

@@ -33,7 +33,7 @@ export const categoryNews = [
 
 export const News = [
     {
-        title: "Jorge Aragão recebe diagnóstico de linfoma não Hodgkin; entenda o câncer",
+        title: "Jorge Aragão recebe diagnóstico de linfoma não Hodgkin",
         category: "Cultura",
         imagePath: "https://f.i.uol.com.br/fotografia/2019/11/04/15729111725dc0b8446f5d9_1572911172_3x2_md.jpg",
         dateReleased: "29/07/2023",

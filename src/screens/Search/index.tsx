@@ -1,12 +1,25 @@
-import { Text, View } from "react-native"
+import { Pressable, Text, TouchableOpacity, View } from "react-native"
+
+import { styled, useColorScheme } from "nativewind";
+
+const StyledPressable = styled(Pressable)
+const StyledText = styled(Text)
 
 const Search: React.FC = () => {
+    const { colorScheme, toggleColorScheme } = useColorScheme();
+
     return (
-        <View className="bg-neutral-300 flex flex-1 justify-start pt-12 items-center">
-            <Text>
-            Search
-            </Text>
-        </View>
+        <StyledPressable
+        onPress={toggleColorScheme}
+        className="flex-1 items-center justify-center dark:bg-background-reading"
+      >
+        <StyledText
+          selectable={false}
+          className="dark:text-black"
+        >
+          {`Try clicking me! ${colorScheme === "dark" ? "🌙" : "🌞"}`}
+        </StyledText>
+      </StyledPressable>
     )
 }
 

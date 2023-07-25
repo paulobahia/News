@@ -5,7 +5,7 @@ import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 import { SwiperData } from "../../variables/data";
 import FeedNews from "./components/FeedNews";
-import { ArchiveAdd, Notification, Save2 } from "iconsax-react-native";
+import { Notification, Save2 } from "iconsax-react-native";
 
 type HomeScreenProps = {
     navigation: BottomTabNavigationProp<RootTabParamList, 'Home'>;

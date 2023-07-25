@@ -1,6 +1,6 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View, TouchableOpacity } from 'react-native';
-import { Setting2, Home, SearchNormal1, ArchiveBook, Archive } from 'iconsax-react-native';
+import { Setting2, Home, SearchNormal1, Archive } from 'iconsax-react-native';
 
 export function BottomTab(props: BottomTabBarProps) {
     const { navigation, state, descriptors } = props
