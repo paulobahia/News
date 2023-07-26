@@ -1,10 +1,14 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { View, Image, Text, TouchableOpacity } from "react-native"
+import * as Brightness from 'expo-brightness';
+
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from "@react-navigation/stack";
+
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { RouteProp } from '@react-navigation/native';
 import { ArrowLeft2, More, Save2 } from 'iconsax-react-native';
+
 import ReadingTheme from '../../components/ReadingTheme';
 
 type SheetNewsScreenProps = {
@@ -22,6 +26,16 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
     const showReadingTheme = () => {
         setReadingThemeVisible(true);
     };
+
+    useEffect(() => {
+        return () => {
+            const revertBrigthness = async () => {
+                await Brightness.restoreSystemBrightnessAsync();
+            }
+
+            revertBrigthness();
+        };
+    }, [])
 
     const BackgroundContente = () => {
         return (

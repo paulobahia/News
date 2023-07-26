@@ -2,7 +2,7 @@ import { Sun1 } from 'iconsax-react-native';
 import { Text, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import * as Brightness from 'expo-brightness';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const BrightnessControl: React.FC = () => {
 
@@ -12,6 +12,14 @@ const BrightnessControl: React.FC = () => {
         setBrightness(value);
         await Brightness.setBrightnessAsync(value);
     };
+
+    useEffect(() => {
+        const setInitialBrightness = async () => {
+            await Brightness.setBrightnessAsync(brightness)
+
+            setInitialBrightness();
+        };
+    }, [])
 
     return (
         <View className='flex px-3'>
