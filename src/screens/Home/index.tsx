@@ -14,7 +14,7 @@ type HomeScreenProps = {
 const Home: React.FC<HomeScreenProps> = (props) => {
     const { navigation } = props
     return (
-        <ScrollView className="bg-white">
+        <ScrollView className="bg-background-light">
             <View className="flex flex-1 pb-20 pt-3 px-5 items-center">
                 <View className="flex w-full">
                     <View className="flex flex-row items-center justify-between">

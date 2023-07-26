@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigation from './src/navigation/Navigation';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar, SafeAreaView } from 'react-native';
 import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
 
@@ -37,9 +37,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar hidden />
-      <Navigation />
-    </NavigationContainer>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar barStyle={'default'} />
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }

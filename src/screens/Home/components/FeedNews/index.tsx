@@ -35,7 +35,7 @@ const FeedNews: React.FC<FeedNewsProps> = ({ navigation }) => {
                     </ScrollView>
                 </View>
                 {data.map((news, index) => (
-                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-100 shadow-black shadow-2xl">
+                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-200/60 shadow-black shadow-2xl">
                         <Image source={{ uri: news.imagePath }} className="w-24 h-24 m-3 rounded-3xl" />
                         <View className="items-start gap-y-2 pt-5 flex pr-5 flex-1">
                             <View className="flex items-center gap-x-2 flex-row">
