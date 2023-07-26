@@ -52,7 +52,7 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
     }
 
     return (
-        <GestureHandlerRootView className="bg-neutral-300 flex flex-1 justify-start items-center">
+        <GestureHandlerRootView className="bg-background-light flex flex-1 justify-start items-center">
             <BottomSheet
                 ref={sheetRef}
                 snapPoints={['65%', "80%"]}

@@ -1,10 +1,10 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Sun1 } from 'iconsax-react-native';
-import { useColorScheme } from 'nativewind';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
-import Modal from "react-native-modal";
 import { useState } from 'react'
+import { Ionicons } from '@expo/vector-icons';
+import { useColorScheme } from 'nativewind';
+import { Text, TouchableOpacity, View } from 'react-native';
+import Modal from "react-native-modal";
 import Slider from '@react-native-community/slider';
+import BrightnessControl from './components/BrightnessControl';
 
 interface ReadingThemeProps {
     isReadingThemeVisible: boolean;
@@ -14,7 +14,6 @@ interface ReadingThemeProps {
 const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setReadingThemeVisible }) => {
 
     const { colorScheme, toggleColorScheme } = useColorScheme();
-    const [value, setValue] = useState(0);
     const [fontSize, setFontSize] = useState(2);
 
     const closeReadingTheme = () => {
@@ -65,23 +64,7 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
                             </Text>
                         </View>
                     </View>
-                    <View className='flex px-3'>
-                        <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                            Brilho
-                        </Text>
-                        <View className='flex flex-row mt-3 justify-between items-center'>
-                            <Sun1 size="15" className='text-black dark:text-white' />
-                            <Slider
-                                minimumTrackTintColor={'black'}
-                                thumbTintColor={'#000'}
-                                onValueChange={setValue}
-                                style={{ width: '90%' }}
-                                minimumValue={0}
-                                maximumValue={100}
-                            />
-                            <Sun1 size="24" className='text-black dark:text-white' />
-                        </View>
-                    </View>
+                    <BrightnessControl />
                     <View className='flex px-3'>
                         <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
                             Cor do fundo
@@ -117,32 +100,5 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    category: {
-        flexDirection: "row",
-        justifyContent: "space-around"
-    },
-    slider: {
-        width: 200,
-        height: 40,
-        flexGrow: 0,
-        borderWidth: 1,
-        borderColor: "black",
-        borderStyle: "solid"
-    },
-    verticalSlider: {
-        height: 200,
-        width: 40,
-        flexGrow: 0,
-        borderWidth: 1,
-        borderColor: "black",
-        borderStyle: "solid"
-    },
-    title: {
-        fontSize: 28,
-        margin: 20
-    }
-});
 
 export default ReadingTheme
