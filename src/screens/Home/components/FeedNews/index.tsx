@@ -57,19 +57,6 @@ const FeedNews: React.FC<FeedNewsProps> = ({ navigation }) => {
                                 <Text className="text-[10px] font-robotoSerif-regular text-neutral-800">{formatDate(news.dateReleased)}</Text>
                             </View>
                         </View>
-                        {/* <View className="flex gap-y-1.5 flex-1 p-2">
-                            <View className="flex flex-row items-center justify-between ">
-                                <View>
-                                    <View className={`px-2 py-0.5 bg-slate-500/20 rounded-md`}><Text className="text-xs text-black/50 font-nunito-bold">{news.category}</Text></View>
-                                </View>
-                            </View>
-                            <View>
-                                <Text numberOfLines={2} ellipsizeMode="tail" className="text-[12px] font-nunito-bold">
-                                    {news.title}
-                                </Text>
-                            </View>
-                            
-                        </View> */}
                     </TouchableOpacity>
                 ))}
             </View>

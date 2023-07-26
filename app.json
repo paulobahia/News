@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "657623f2-4849-43c1-8729-49bb01f84a14"
+      }
+    },
+    "owner": "aiokparagaio",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/657623f2-4849-43c1-8729-49bb01f84a14"
     }
   }
 }

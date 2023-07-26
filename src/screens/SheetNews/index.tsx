@@ -4,9 +4,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RouteProp } from '@react-navigation/native';
-import { ArrowLeft2, More, Save2, Sun1 } from 'iconsax-react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useColorScheme } from 'nativewind';
+import { ArrowLeft2, More, Save2 } from 'iconsax-react-native';
+import ReadingTheme from '../../components/ReadingTheme';
 
 type SheetNewsScreenProps = {
     navigation: StackNavigationProp<RootTabParamList, 'SheetNews'>;
@@ -17,23 +16,11 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
 
     const { category, imagePath, dateReleased, title } = route.params.news
     const sheetRef = useRef<BottomSheet>(null)
-    const sheetThemeRef = useRef<BottomSheet>(null)
-    const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
-    const { colorScheme, toggleColorScheme } = useColorScheme();
+    const [isReadingThemeVisible, setReadingThemeVisible] = useState(false);
 
-    const closeBottomSheet = () => {
-        sheetThemeRef.current?.close()
-    };
-
-    const openBottomSheet = () => {
-        setIsBottomSheetVisible(true);
-    };
-
-    const handleSheetChanges = (index: number) => {
-        if (index === -1) {
-            setIsBottomSheetVisible(false);
-        }
+    const showReadingTheme = () => {
+        setReadingThemeVisible(true);
     };
 
     const BackgroundContente = () => {
@@ -51,7 +38,7 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
                             </TouchableOpacity>
                         </View>
                         <View className='gap-y-2'>
-                            <TouchableOpacity onPress={openBottomSheet} className='p-2 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
+                            <TouchableOpacity onPress={showReadingTheme} className='p-2 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
                                 <More size="24" color="#fff" />
                             </TouchableOpacity>
                             <TouchableOpacity className='p-2 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
@@ -68,7 +55,7 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
         <GestureHandlerRootView className="bg-neutral-300 flex flex-1 justify-start items-center">
             <BottomSheet
                 ref={sheetRef}
-                snapPoints={['75%']}
+                snapPoints={['65%', "80%"]}
                 backdropComponent={() => <BackgroundContente />}
             >
                 <BottomSheetScrollView>
@@ -104,89 +91,7 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
                     </View>
                 </BottomSheetScrollView>
             </BottomSheet>
-
-            <BottomSheet
-                ref={sheetThemeRef}
-                snapPoints={['65%']}
-                handleComponent={null}
-                enablePanDownToClose
-                onChange={handleSheetChanges}
-                index={isBottomSheetVisible ? 0 : -1}
-            >
-                <View className='rounded-t-3xl bg-background-light dark:bg-background-dark flex p-5 items-center flex-1'>
-                    <View className='flex mb-5 flex-row items-center justify-between w-full'>
-                        <Text className='text-black dark:text-white font-robotoSerif-medium text-xl'>
-                            Tema de leitura
-                        </Text>
-                        <TouchableOpacity onPress={closeBottomSheet} className='p-2 justify-center items-center flex'>
-                            <Ionicons name="close" size={24} color={colorScheme === "dark" ? 'white' : 'black'} />
-                        </TouchableOpacity>
-                    </View>
-                    <View className='flex flex-1 justify-around gap-y-3 w-full'>
-                        <View className='flex px-3 py-1 items-center flex-row justify-between'>
-                            <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                                Dark Mode
-                            </Text>
-                            <TouchableOpacity onPress={toggleColorScheme} className={`${colorScheme === "dark" ? 'bg-white items-end' : 'bg-black items-start'} p-1 w-14 h-7 justify-center transition-all delay-150 ease-out flex rounded `}>
-                                <View className={`${colorScheme === "dark" ? 'bg-black' : 'bg-white'} w-[45%] h-full rounded-md`} />
-                            </TouchableOpacity>
-                        </View>
-                        <View className='flex px-3'>
-                            <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                                Font Size
-                            </Text>
-                            <View className='flex flex-row mt-3 w-full justify-between items-center'>
-                                <Text className='text-xs font-robotoSerif-medium'>
-                                    A
-                                </Text>
-                                <Text className='text-base font-robotoSerif-medium'>
-                                    A
-                                </Text>
-                            </View>
-                        </View>
-                        <View className='flex px-3'>
-                            <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                                Brilho
-                            </Text>
-                            <View className='flex flex-row mt-3 w-full justify-between items-center'>
-                                <Sun1 size="15" color="#000" />
-                                <Sun1 size="24" color="#000" />
-                            </View>
-                        </View>
-                        <View className='flex px-3'>
-                            <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                                Cor do fundo
-                            </Text>
-                            <View className='flex flex-row mt-3 w-full justify-between items-center'>
-                                <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-light'>
-                                    <Text className='text-xs font-robotoSerif-light'>
-                                        Aa
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-dark'>
-                                    <Text className='text-xs font-robotoSerif-light text-white'>
-                                        Aa
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-reading'>
-                                    <Text className='text-xs font-robotoSerif-light'>
-                                        Aa
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-dark2'>
-                                    <Text className='text-xs font-robotoSerif-light text-white'>
-                                        Aa
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                    <TouchableOpacity activeOpacity={0.6} className='bg-black w-full mt-5 dark:bg-white flex justify-center items-center p-3 rounded-lg'>
-                        <Text className='text-base text-white dark:text-black font-robotoSerif-extrabold'>Aplicar</Text>
-                    </TouchableOpacity>
-                </View>
-            </BottomSheet>
-
+            <ReadingTheme isReadingThemeVisible={isReadingThemeVisible} setReadingThemeVisible={setReadingThemeVisible} />
         </GestureHandlerRootView >
     )
 }
