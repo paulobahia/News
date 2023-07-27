@@ -12,4 +12,19 @@ type News = {
     category: string;
     imagePath: string;
     dateReleased: string;
+    timeToRead: number;
 };
+
+
+interface UserPreferences {
+    ThemeReading: ThemeReading
+    savedNews: News[];
+    firstAccess: boolean;
+    DarkMode: boolean;
+}
+
+interface ThemeReading {
+    background: string;
+    brightest: number;
+    fontSize: number;
+}
