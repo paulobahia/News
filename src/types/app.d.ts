@@ -17,10 +17,10 @@ type News = {
 
 
 interface UserPreferences {
-    ThemeReading: ThemeReading
+    themeReading: ThemeReading
     savedNews: News[];
     firstAccess: boolean;
-    DarkMode: boolean;
+    darkMode: boolean;
 }
 
 interface ThemeReading {

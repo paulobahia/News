@@ -28,22 +28,22 @@ class StorageService {
 
     getReadingTheme = (): ThemeReading | null => {
         const preferences = this.getUserPreferences();
-        return preferences ? preferences.ThemeReading : null;
+        return preferences ? preferences.themeReading : null;
     };
 
-    setReadingTheme = (theme: ThemeReading) => {
+    setReadingTheme = async (theme: ThemeReading) => {
         const preferences = this.getUserPreferences();
 
         if (preferences) {
-            preferences.ThemeReading = theme;
+            preferences.themeReading = theme;
             this.saveUserPreferences(preferences);
         }
         else {
             const newPreferences: UserPreferences = {
-                ThemeReading: theme,
+                themeReading: theme,
                 savedNews: [],
                 firstAccess: true,
-                DarkMode: false,
+                darkMode: false,
             };
             this.saveUserPreferences(newPreferences);
         }
@@ -60,10 +60,10 @@ class StorageService {
         let preferences = this.getUserPreferences();
         if (!preferences) {
             preferences = {
-                ThemeReading: { background: '', brightest: 0, fontSize: 0 },
+                themeReading: { background: '', brightest: 0.5, fontSize: 2 },
                 savedNews: [news],
                 firstAccess: true,
-                DarkMode: false,
+                darkMode: false,
             };
         } else {
             preferences.savedNews.push(news);
@@ -75,20 +75,20 @@ class StorageService {
 
     getDarkMode = (): boolean | null => {
         const preferences = this.getUserPreferences();
-        return preferences ? preferences.DarkMode : null;
+        return preferences ? preferences.darkMode : null;
     };
 
-    setDarkMode = (enabled: boolean) => {
+    setDarkMode = async (enabled: boolean) => {
         let preferences = this.getUserPreferences();
         if (!preferences) {
             preferences = {
-                ThemeReading: { background: '', brightest: 0, fontSize: 0 },
+                themeReading: { background: '', brightest: 0.5, fontSize: 2 },
                 savedNews: [],
                 firstAccess: true,
-                DarkMode: enabled,
+                darkMode: enabled,
             };
         } else {
-            preferences.DarkMode = enabled;
+            preferences.darkMode = enabled;
         }
         this.saveUserPreferences(preferences);
     };
@@ -104,10 +104,10 @@ class StorageService {
         let preferences = this.getUserPreferences();
         if (!preferences) {
             preferences = {
-                ThemeReading: { background: '', brightest: 0, fontSize: 0 },
+                themeReading: { background: '', brightest: 0.5, fontSize: 2 },
                 savedNews: [],
                 firstAccess: isFirstAccess,
-                DarkMode: false,
+                darkMode: false,
             };
         } else {
             preferences.firstAccess = isFirstAccess;

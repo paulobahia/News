@@ -1,24 +1,35 @@
-import { Sun1 } from 'iconsax-react-native';
+import { useEffect } from 'react';
 import { Text, View } from 'react-native';
-import Slider from '@react-native-community/slider';
 import * as Brightness from 'expo-brightness';
-import { useState, useEffect } from 'react';
+import { ColorSchemeName } from 'nativewind/dist/style-sheet/color-scheme';
 
-const BrightnessControl: React.FC = () => {
+import { Sun1 } from 'iconsax-react-native';
+import Slider from '@react-native-community/slider';
 
-    const [brightness, setBrightness] = useState(0.5);
+interface BrightnessControlProps {
+    brightness: number;
+    setBrightness: React.Dispatch<React.SetStateAction<ThemeReading>>;
+    colorScheme: ColorSchemeName
+}
 
-    const onBrightnessChange = async (value: number) => {
-        setBrightness(value);
-        await Brightness.setBrightnessAsync(value);
+export const BrightnessControl: React.FC<BrightnessControlProps> = ({ brightness, setBrightness, colorScheme }) => {
+
+    const onBrightnessChange = async (newbrightest: number) => {
+
+        setBrightness((prevTheme) => ({
+            ...prevTheme,
+            brightest: newbrightest
+        }))
+
+        await Brightness.setBrightnessAsync(newbrightest);
     };
 
     useEffect(() => {
         const setInitialBrightness = async () => {
             await Brightness.setBrightnessAsync(brightness)
-
-            setInitialBrightness();
         };
+
+        setInitialBrightness();
     }, [])
 
     return (
@@ -27,7 +38,7 @@ const BrightnessControl: React.FC = () => {
                 Brilho
             </Text>
             <View className='flex flex-row mt-3 justify-between items-center'>
-                <Sun1 size="15" className='text-black dark:text-white' />
+                <Sun1 size="15" color={colorScheme === "dark" ? 'white' : 'black'} />
                 <Slider
                     minimumTrackTintColor={'black'}
                     thumbTintColor={'#000'}
@@ -37,10 +48,8 @@ const BrightnessControl: React.FC = () => {
                     minimumValue={0}
                     maximumValue={1}
                 />
-                <Sun1 size="24" className='text-black dark:text-white' />
+                <Sun1 size="24" color={colorScheme === "dark" ? 'white' : 'black'} />
             </View>
         </View>
     )
 }
-
-export default BrightnessControl

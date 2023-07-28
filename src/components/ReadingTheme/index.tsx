@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Modal from "react-native-modal";
-import Slider from '@react-native-community/slider';
-import BrightnessControl from './components/BrightnessControl';
+import { BrightnessControl, FontSizeControl, BackgroundControl } from './components';
+import storage from '../../services/storage';
 
 interface ReadingThemeProps {
     isReadingThemeVisible: boolean;
@@ -14,10 +14,37 @@ interface ReadingThemeProps {
 const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setReadingThemeVisible }) => {
 
     const { colorScheme, toggleColorScheme } = useColorScheme();
-    const [fontSize, setFontSize] = useState(2);
+
+    const [theme, setTheme] = useState<ThemeReading>({
+        background: "#F2F2F2",
+        brightest: 0.5,
+        fontSize: 2,
+    });
 
     const closeReadingTheme = () => {
         setReadingThemeVisible(false)
+    }
+
+    useEffect(() => {
+        const getUserPreferences = () => {
+            const userPreferencesData = storage.getUserPreferences();
+
+            if (userPreferencesData != null) {
+                setTheme(userPreferencesData.themeReading)
+            }
+        }
+
+        getUserPreferences();
+    }, [])
+
+    const setUserPreferences = async () => {
+        try {
+            await storage.setReadingTheme(theme)
+            await storage.setDarkMode(colorScheme === 'dark' ? true : false)
+            closeReadingTheme()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -41,59 +68,11 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
                             <View className={`${colorScheme === "dark" ? 'bg-black' : 'bg-white'} w-2/5 h-full rounded-xl`} />
                         </TouchableOpacity>
                     </View>
-                    <View className='flex px-3'>
-                        <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                            Font Size
-                        </Text>
-                        <View className='flex flex-row mt-3 w-full justify-between items-center'>
-                            <Text className='text-xs dark:text-white font-robotoSerif-medium'>
-                                A
-                            </Text>
-                            <Slider
-                                minimumTrackTintColor={'black'}
-                                thumbTintColor={'#000'}
-                                onValueChange={setFontSize}
-                                style={{ width: '90%' }}
-                                value={fontSize}
-                                step={1}
-                                minimumValue={0}
-                                maximumValue={6}
-                            />
-                            <Text className='text-base dark:text-white font-robotoSerif-medium'>
-                                A
-                            </Text>
-                        </View>
-                    </View>
-                    <BrightnessControl />
-                    <View className='flex px-3'>
-                        <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                            Cor do fundo
-                        </Text>
-                        <View className='flex flex-row mt-3 w-full justify-between items-center'>
-                            <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-light'>
-                                <Text className='text-xs font-robotoSerif-light'>
-                                    Aa
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-dark'>
-                                <Text className='text-xs font-robotoSerif-light text-white'>
-                                    Aa
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-reading'>
-                                <Text className='text-xs font-robotoSerif-light'>
-                                    Aa
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity className='flex justify-center rounded-md shadow-md shadow-black items-center px-7 py-1 bg-background-dark2'>
-                                <Text className='text-xs font-robotoSerif-light text-white'>
-                                    Aa
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                    <FontSizeControl fontSize={theme.fontSize} setFontSize={setTheme} />
+                    <BrightnessControl colorScheme={colorScheme} brightness={theme.brightest} setBrightness={setTheme} />
+                    <BackgroundControl background={theme.background} setBackground={setTheme} />
                 </View>
-                <TouchableOpacity activeOpacity={0.6} className='bg-black w-full mt-5 dark:bg-white flex justify-center items-center p-3 rounded-lg'>
+                <TouchableOpacity onPress={setUserPreferences} activeOpacity={0.6} className='bg-black w-full mt-5 dark:bg-white flex justify-center items-center p-3 rounded-lg'>
                     <Text className='text-base text-white dark:text-black font-robotoSerif-extrabold'>Aplicar</Text>
                 </TouchableOpacity>
             </View>
