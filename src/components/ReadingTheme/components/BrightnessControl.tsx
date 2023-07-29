@@ -24,14 +24,6 @@ export const BrightnessControl: React.FC<BrightnessControlProps> = ({ brightness
         await Brightness.setBrightnessAsync(newbrightest);
     };
 
-    useEffect(() => {
-        const setInitialBrightness = async () => {
-            await Brightness.setBrightnessAsync(brightness)
-        };
-
-        setInitialBrightness();
-    }, [])
-
     return (
         <View className='flex px-3'>
             <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>

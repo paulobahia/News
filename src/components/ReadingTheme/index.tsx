@@ -3,6 +3,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Modal from "react-native-modal";
+import * as Brightness from 'expo-brightness';
+
 import { BrightnessControl, FontSizeControl, BackgroundControl } from './components';
 import storage from '../../services/storage';
 
@@ -24,6 +26,14 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
     const closeReadingTheme = () => {
         setReadingThemeVisible(false)
     }
+
+    useEffect(() => {
+        const setInitialBrightness = async () => {
+            await Brightness.setBrightnessAsync(theme.brightest)
+        };
+
+        setInitialBrightness();
+    }, [])
 
     useEffect(() => {
         const getUserPreferences = () => {
