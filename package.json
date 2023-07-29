@@ -20,6 +20,7 @@
     "expo-status-bar": "~1.4.4",
     "expo-updates": "~0.16.4",
     "iconsax-react-native": "^0.0.8",
+    "lucide-react-native": "^0.263.0",
     "nativewind": "^2.0.11",
     "postcss-cli": "^10.1.0",
     "prop-types": "^15.8.1",
