@@ -5,7 +5,8 @@ import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 import { SwiperData } from "../../variables/data";
 import FeedNews from "./components/FeedNews";
-import { Notification, Save2 } from "iconsax-react-native";
+import { Notification } from "iconsax-react-native";
+import { SaveNews } from "../../components/SaveNews";
 
 type HomeScreenProps = {
     navigation: BottomTabNavigationProp<RootTabParamList, 'Home'>;
@@ -35,12 +36,10 @@ const Home: React.FC<HomeScreenProps> = (props) => {
                             <Swiper showsButtons={false} showsPagination={false} showsHorizontalScrollIndicator={false}>
                                 {SwiperData.map((item, index) => (
                                     <TouchableOpacity key={index} className="flex flex-1">
-                                        <Image source={{ uri: item.url }} className="w-full h-full rounded-3xl bg-cover" />
+                                        <Image source={{ uri: item.imagePath }} className="w-full h-full rounded-3xl bg-cover" />
                                         <View className="absolute flex w-full h-full bg-slate-600/20 rounded-3xl bottom-0">
                                             <View className="absolute p-6 flex top-0 w-full h-full items-end">
-                                                <TouchableOpacity className="bg-gray-400/50 p-2 rounded-lg">
-                                                    <Save2 size="24" color="white" />
-                                                </TouchableOpacity>
+                                                <SaveNews news={item} />
                                             </View>
                                             <View className="flex absolute bottom-0 gap-y-3 rounded-b-3xl p-6 w-full">
                                                 <View className="flex items-center gap-x-2 justify-start flex-row">
@@ -59,7 +58,7 @@ const Home: React.FC<HomeScreenProps> = (props) => {
                                                     </Text>
                                                     <View className="flex items-end">
                                                         <Text className="text-white font-robotoSerif-regular text-xs">
-                                                            {item.date}
+                                                            {item.dateReleased}
                                                         </Text>
                                                     </View>
                                                 </View>

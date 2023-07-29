@@ -71,6 +71,23 @@ class StorageService {
         this.saveUserPreferences(preferences);
     };
 
+    removeNews = (newsId: string) => {
+        let preferences = this.getUserPreferences();
+        
+        if (preferences) {
+            const savedNews = preferences.savedNews;
+            const indexToRemove = savedNews.findIndex((news) => news.id === newsId);
+            
+            if (indexToRemove !== -1) {
+                // Remove a notícia da lista pelo índice
+                savedNews.splice(indexToRemove, 1);
+                
+                // Salva as preferências atualizadas
+                this.saveUserPreferences(preferences);
+            }
+        }
+    };
+
     // DarkMode
 
     getDarkMode = (): boolean | null => {
