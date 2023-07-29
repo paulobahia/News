@@ -7,10 +7,11 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ArrowLeft2, More } from 'iconsax-react-native';
+import { ArrowLeft2 } from 'iconsax-react-native';
 
 import ReadingTheme from '../../components/ReadingTheme';
 import { SaveNews } from '../../components/SaveNews';
+import { MoreOptions } from './components/MoreOptions';
 
 type SheetNewsScreenProps = {
     navigation: StackNavigationProp<RootTabParamList, 'SheetNews'>;
@@ -48,14 +49,14 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
                 <View className='w-screen h-2/5 p-5 absolute'>
                     <View className='flex flex-row justify-between'>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.goBack()} className='p-2 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
+                            <TouchableOpacity onPress={() => navigation.goBack()} className='w-10 h-10 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
                                 <ArrowLeft2 size="24" color="#fff" />
                             </TouchableOpacity>
                         </View>
                         <View className='gap-y-2'>
-                            <TouchableOpacity onPress={showReadingTheme} className='p-2 shadow-2xl rounded-lg shadow-black justify-center items-center flex bg-gray-500/60'>
-                                <More size="24" color="#fff" />
-                            </TouchableOpacity>
+                            <View>
+                                <MoreOptions showReadingTheme={showReadingTheme} />
+                            </View>
                             <View>
                                 <SaveNews news={route.params.news} />
                             </View>
