@@ -22,21 +22,11 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
         brightest: 0.5,
         fontSize: 2,
     });
-
     const closeReadingTheme = () => {
         setReadingThemeVisible(false)
     }
-
     useEffect(() => {
-        const setInitialBrightness = async () => {
-            await Brightness.setBrightnessAsync(theme.brightest)
-        };
-
-        setInitialBrightness();
-    }, [])
-
-    useEffect(() => {
-        const getUserPreferences = () => {
+        const getUserPreferences = async () => {
             const userPreferencesData = storage.getUserPreferences();
 
             if (userPreferencesData != null) {
@@ -44,7 +34,21 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
             }
         }
 
-        getUserPreferences();
+        const setInitialBrightness = () => {
+            Brightness.setBrightnessAsync(theme.brightest)
+        };
+
+        const fetchData = async () => {
+            await getUserPreferences();
+            setInitialBrightness();
+        };
+
+        fetchData();
+    }, [])
+
+    useEffect(() => {
+
+
     }, [])
 
     const setUserPreferences = async () => {
