@@ -8,11 +8,12 @@ type RootTabParamList = {
 };
 
 type News = {
+    id: int;
     title: string;
     category: string;
     imagePath: string;
     dateReleased: string;
-    timeToRead: number;
+    timeToRead: string;
 };
 
 
