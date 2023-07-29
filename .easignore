@@ -1,0 +1,15 @@
+# Ignorar arquivos de compilação
+*.log
+*.map
+
+# Ignorar a pasta com dependências do npm
+node_modules/
+
+# Ignorar arquivos de configuração local
+.env
+.eslintrc.js
+.babelrc
+
+# Ignorar arquivos gerados ou temporários
+build/
+dist/
