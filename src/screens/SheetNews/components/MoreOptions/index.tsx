@@ -12,7 +12,7 @@ export const MoreOptions: React.FC<{ showReadingTheme: () => void }> = ({ showRe
 
         Animated.timing(rightValue, {
             toValue: toValue,
-            duration: 800,
+            duration: 400,
             useNativeDriver: true,
         }).start();
 

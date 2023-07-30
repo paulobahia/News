@@ -12,6 +12,8 @@ import { ArrowLeft2 } from 'iconsax-react-native';
 import ReadingTheme from '../../components/ReadingTheme';
 import { SaveNews } from '../../components/SaveNews';
 import { MoreOptions } from './components/MoreOptions';
+import { useColorScheme } from 'nativewind';
+import storage from '../../services/storage';
 
 type SheetNewsScreenProps = {
     navigation: StackNavigationProp<RootTabParamList, 'SheetNews'>;
@@ -19,29 +21,95 @@ type SheetNewsScreenProps = {
 };
 
 const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
+    const { colorScheme } = useColorScheme();
 
     const { category, imagePath, dateReleased, title, id } = route.params.news
     const sheetRef = useRef<BottomSheet>(null)
 
     const [isReadingThemeVisible, setReadingThemeVisible] = useState(false);
 
+    const [theme, setTheme] = useState<ThemeReading>({
+        background: "#F2F2F2",
+        brightest: 0.5,
+        fontSize: 2,
+    });
+
+    const [textColor, setTextColor] = useState('#000')
+
     const showReadingTheme = () => {
         setReadingThemeVisible(true);
     };
 
     useEffect(() => {
+        const readingThemeData = storage.getReadingTheme();
+
+        const getReadingTheme = async () => {
+            if (readingThemeData != null) {
+                setTheme(readingThemeData)
+            }
+            else {
+                setTheme({
+                    background: "#F2F2F2",
+                    brightest: 0.5,
+                    fontSize: 2,
+                })
+            }
+        }
+
+        const setInitialBrightness = () => {
+            const brightnessValue = readingThemeData?.brightest ?? 0.5
+            Brightness.setBrightnessAsync(brightnessValue)
+        };
+
+        const handleThemeText = async () => {
+            const backgroundValue = readingThemeData?.background ?? '#000'
+            if (backgroundValue === "") {
+                if (colorScheme === "dark") {
+                    setTextColor('#fff')
+                }
+                else {
+                    setTextColor('#000')
+                }
+            }
+            else {
+                switch (backgroundValue) {
+                    case "#F2F2F2":
+                        setTextColor('#000')
+                        break;
+                    case "#333333":
+                        setTextColor('#fff')
+                        break;
+                    case "#FFF5CC":
+                        setTextColor('#000')
+                        break;
+                    case "#444444":
+                        setTextColor('#fff')
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        const fetchData = async () => {
+            await getReadingTheme();
+            setInitialBrightness();
+            handleThemeText();
+        };
+
+        fetchData();
+
         return () => {
             const revertBrigthness = async () => {
                 await Brightness.restoreSystemBrightnessAsync();
             }
-
             revertBrigthness();
         };
-    }, [])
+    }, [isReadingThemeVisible])
 
     const BackgroundContente = () => {
         return (
-            <View className='flex-1'>
+            <View style={{ backgroundColor: `${theme.background}` }} className='flex-1'>
                 <Image
                     source={{ uri: imagePath }}
                     className='w-screen h-2/5'
@@ -68,14 +136,18 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
     }
 
     return (
-        <GestureHandlerRootView className="bg-background-light flex flex-1 justify-start items-center">
+        <GestureHandlerRootView className="flex flex-1 justify-start items-center">
             <BottomSheet
+                // handleIndicatorStyle={{ backgroundColor: 'red' }}
+                handleStyle={{
+                    backgroundColor: `${theme.background}`,
+                }}
                 ref={sheetRef}
                 snapPoints={['65%', "80%"]}
                 backdropComponent={() => <BackgroundContente />}
             >
                 <BottomSheetScrollView>
-                    <View className='flex px-5 gap-y-5 pt-3'>
+                    <View style={{ backgroundColor: `${theme.background}` }} className='flex px-5 gap-y-5 pt-3'>
                         <View className='flex justify-between items-center flex-row'>
                             <View className='shadow-2xl rounded-md bg-green-500 px-4 py-0.5 transition-colors'>
                                 <Text className='font-robotoSerif-medium text-sm text-white'>
@@ -89,12 +161,12 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
                             </View>
                         </View>
                         <View>
-                            <Text className='font-robotoSerif-bold text-2xl'>
+                            <Text style={{ color: `${textColor}` }} className='font-robotoSerif-bold text-2xl'>
                                 {title}
                             </Text>
                         </View>
                         <View className='mb-5'>
-                            <Text className='text-sm font-robotoSerif-regular text-justify'>
+                            <Text style={{ color: `${textColor}` }} className='text-sm font-robotoSerif-regular text-justify'>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam tristique nisl ut convallis. Aenean id elit vel urna hendrerit faucibus a in diam. Proin id vestibulum nisl. Integer auctor eleifend massa, vel euismod arcu malesuada vel. Fusce venenatis bibendum massa id vehicula. In suscipit dui vel ligula cursus, ac feugiat dui convallis. Ut eu tincidunt urna. Sed malesuada purus vel elit facilisis, ut finibus lectus eleifend.
                                 {'\n'}
                                 {'\n'}
@@ -107,7 +179,7 @@ const SheetNews: React.FC<SheetNewsScreenProps> = ({ route, navigation }) => {
                     </View>
                 </BottomSheetScrollView>
             </BottomSheet>
-            <ReadingTheme isReadingThemeVisible={isReadingThemeVisible} setReadingThemeVisible={setReadingThemeVisible} />
+            <ReadingTheme theme={theme} setTheme={setTheme} isReadingThemeVisible={isReadingThemeVisible} setReadingThemeVisible={setReadingThemeVisible} />
         </GestureHandlerRootView >
     )
 }

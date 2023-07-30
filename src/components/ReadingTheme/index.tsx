@@ -11,46 +11,17 @@ import storage from '../../services/storage';
 interface ReadingThemeProps {
     isReadingThemeVisible: boolean;
     setReadingThemeVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    theme: ThemeReading
+    setTheme: React.Dispatch<React.SetStateAction<ThemeReading>>
 }
 
-const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setReadingThemeVisible }) => {
+const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setReadingThemeVisible, theme, setTheme }) => {
 
     const { colorScheme, toggleColorScheme } = useColorScheme();
-
-    const [theme, setTheme] = useState<ThemeReading>({
-        background: "#F2F2F2",
-        brightest: 0.5,
-        fontSize: 2,
-    });
+    const { background, brightest, fontSize } = theme
     const closeReadingTheme = () => {
         setReadingThemeVisible(false)
     }
-    useEffect(() => {
-        const getUserPreferences = async () => {
-            const userPreferencesData = storage.getUserPreferences();
-
-            if (userPreferencesData != null) {
-                setTheme(userPreferencesData.themeReading)
-            }
-        }
-
-        const setInitialBrightness = () => {
-            Brightness.setBrightnessAsync(theme.brightest)
-        };
-
-        const fetchData = async () => {
-            await getUserPreferences();
-            setInitialBrightness();
-        };
-
-        fetchData();
-    }, [])
-
-    useEffect(() => {
-
-
-    }, [])
-
     const setUserPreferences = async () => {
         try {
             await storage.setReadingTheme(theme)
@@ -82,9 +53,9 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
                             <View className={`${colorScheme === "dark" ? 'bg-black' : 'bg-white'} w-2/5 h-full rounded-xl`} />
                         </TouchableOpacity>
                     </View>
-                    <FontSizeControl fontSize={theme.fontSize} setFontSize={setTheme} />
-                    <BrightnessControl colorScheme={colorScheme} brightness={theme.brightest} setBrightness={setTheme} />
-                    <BackgroundControl background={theme.background} setBackground={setTheme} />
+                    <FontSizeControl fontSize={fontSize} setFontSize={setTheme} />
+                    <BrightnessControl colorScheme={colorScheme} brightness={brightest} setBrightness={setTheme} />
+                    <BackgroundControl background={background} setBackground={setTheme} />
                 </View>
                 <TouchableOpacity onPress={setUserPreferences} activeOpacity={0.6} className='bg-black w-full mt-5 dark:bg-white flex justify-center items-center p-3 rounded-lg'>
                     <Text className='text-base text-white dark:text-black font-robotoSerif-extrabold'>Aplicar</Text>
