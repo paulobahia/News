@@ -25,17 +25,17 @@ const FeedNews: React.FC<FeedNewsProps> = ({ navigation }) => {
     return (
         <View className="flex">
             <View>
-                <View className="">
+                <View>
                     <ScrollView showsHorizontalScrollIndicator={false} className="py-3 flex gap-x-2 shadow-black shadow-2xl" horizontal={true}>
                         {categoryNews.map((item, index) => (
-                            <TouchableOpacity key={index} disabled={item.name == category} onPress={() => setCategoryFeed(item.name)} className={`${category == item.name && 'bg-slate-600'}  shadow-2xl rounded-md px-4 py-0.5 transition-colors `}>
-                                <Text className={`${category == item.name ? 'text-white font-bold' : 'font-medium text-gray-300'}`}>{item.name}</Text>
+                            <TouchableOpacity key={index} disabled={item.name == category} onPress={() => setCategoryFeed(item.name)} className={`${category == item.name && 'bg-slate-600 dark:bg-neutral-100'}  shadow-2xl rounded-md px-4 py-0.5 transition-colors `}>
+                                <Text className={`${category == item.name ? 'text-white dark:text-black font-bold' : 'font-medium text-gray-300 dark:text-white'}`}>{item.name}</Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
                 </View>
                 {data.map((news, index) => (
-                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-200/60 shadow-black shadow-2xl">
+                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-200/60 dark:bg-neutral-100 shadow-black shadow-2xl">
                         <Image source={{ uri: news.imagePath }} className="w-24 h-24 m-3 rounded-3xl" />
                         <View className="items-start gap-y-2 pt-5 flex pr-5 flex-1">
                             <View className="flex items-center gap-x-2 flex-row">

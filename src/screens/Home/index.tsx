@@ -7,6 +7,7 @@ import { SwiperData } from "../../variables/data";
 import FeedNews from "./components/FeedNews";
 import { Notification } from "iconsax-react-native";
 import { SaveNews } from "../../components/SaveNews";
+import { useColorScheme } from "nativewind";
 
 type HomeScreenProps = {
     navigation: BottomTabNavigationProp<RootTabParamList, 'Home'>;
@@ -14,19 +15,21 @@ type HomeScreenProps = {
 
 const Home: React.FC<HomeScreenProps> = (props) => {
     const { navigation } = props
+    const { colorScheme } = useColorScheme();
+
     return (
-        <ScrollView className="bg-background-light">
+        <ScrollView className="bg-background-light dark:bg-background-dark">
             <View className="flex flex-1 pb-20 pt-3 px-5 items-center">
                 <View className="flex w-full">
                     <View className="flex flex-row items-center justify-between">
                         <View className="flex-row items-baseline gap-x-0.5">
-                            <Text className="font-robotoSerif-extrabold text-2xl">
+                            <Text className="font-robotoSerif-extrabold dark:text-white text-2xl">
                                 News
                             </Text>
                             <View className="p-1 bg-red-500 rounded-full" />
                         </View>
                         <TouchableOpacity className="flex-row flex items-start">
-                            <Notification size="24" color="black" variant="TwoTone" />
+                            <Notification size="24" color={colorScheme === 'dark' ? 'white' : 'black'} variant="TwoTone" />
                             {/* Bolinha de Notificação */}
                             {/* <View className="p-1 bg-red-500 rounded-full absolute right-1" /> */}
                         </TouchableOpacity>
