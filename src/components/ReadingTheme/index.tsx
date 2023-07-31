@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Modal from "react-native-modal";
-import * as Brightness from 'expo-brightness';
 
 import { BrightnessControl, FontSizeControl, BackgroundControl } from './components';
 import storage from '../../services/storage';
@@ -17,7 +15,7 @@ interface ReadingThemeProps {
 
 const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setReadingThemeVisible, theme, setTheme }) => {
 
-    const { colorScheme, toggleColorScheme } = useColorScheme();
+    const { colorScheme } = useColorScheme();
     const { background, brightest, fontSize } = theme
     const closeReadingTheme = () => {
         setReadingThemeVisible(false)
@@ -45,14 +43,6 @@ const ReadingTheme: React.FC<ReadingThemeProps> = ({ isReadingThemeVisible, setR
                     </TouchableOpacity>
                 </View>
                 <View className='flex flex-1 justify-around gap-y-3 w-full'>
-                    <View className='flex px-3 py-1 items-center flex-row justify-between'>
-                        <Text className='text-black dark:text-white text-sm font-robotoSerif-regular'>
-                            Dark Mode
-                        </Text>
-                        <TouchableOpacity onPress={toggleColorScheme} className={`${colorScheme === "dark" ? 'bg-white items-end' : 'bg-black items-start'} p-1 w-14 h-7 transition-all delay-300 ease-linear flex rounded-md `}>
-                            <View className={`${colorScheme === "dark" ? 'bg-black' : 'bg-white'} w-2/5 h-full rounded-xl`} />
-                        </TouchableOpacity>
-                    </View>
                     <FontSizeControl fontSize={fontSize} setFontSize={setTheme} />
                     <BrightnessControl colorScheme={colorScheme} brightness={brightest} setBrightness={setTheme} />
                     <BackgroundControl background={background} setBackground={setTheme} />
