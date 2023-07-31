@@ -35,26 +35,26 @@ const FeedNews: React.FC<FeedNewsProps> = ({ navigation }) => {
                     </ScrollView>
                 </View>
                 {data.map((news, index) => (
-                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-200/60 dark:bg-neutral-100 shadow-black shadow-2xl">
+                    <TouchableOpacity onPress={() => navigation.navigate('SheetNews', { news })} key={index} className="my-1 flex flex-row rounded-3xl bg-slate-200/60 dark:bg-background-darkLight shadow-black shadow-2xl">
                         <Image source={{ uri: news.imagePath }} className="w-24 h-24 m-3 rounded-3xl" />
                         <View className="items-start gap-y-2 pt-5 flex pr-5 flex-1">
                             <View className="flex items-center gap-x-2 flex-row">
-                                <View className="px-2 py-0.5 bg-slate-600 rounded-md">
-                                    <Text className="text-xs text-white  font-bold">{news.category}</Text>
+                                <View className="px-2 py-0.5 bg-slate-600 dark:bg-white rounded-md">
+                                    <Text className="text-xs text-white dark:text-black font-bold">{news.category}</Text>
                                 </View>
-                                <View className="text-black">
-                                    <Text className="text-black font-light text-[10px]">
+                                <View>
+                                    <Text className="text-black dark:text-white font-light text-[10px]">
                                         {news.timeToRead} de leitura
                                     </Text>
                                 </View>
                             </View>
                             <View className="mr-1">
-                                <Text numberOfLines={2} ellipsizeMode="tail" className="text-xs font-robotoSerif-regular text-black">
+                                <Text numberOfLines={2} ellipsizeMode="tail" className="text-xs font-robotoSerif-regular text-black dark:text-white">
                                     {news.title}
                                 </Text>
                             </View>
                             <View className="flex w-full items-end">
-                                <Text className="text-[10px] font-robotoSerif-regular text-neutral-800">{formatDate(news.dateReleased)}</Text>
+                                <Text className="text-[10px] font-robotoSerif-regular text-neutral-800 dark:text-neutral-300">{formatDate(news.dateReleased)}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
